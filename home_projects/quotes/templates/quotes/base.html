@@ -24,6 +24,8 @@
         <div class="col-md-4">
             <p>
                 {% if user.is_authenticated %}
+            <a href="{% url 'quotes:add_author' %}" class="btn btn-primary">Додати автора</a>
+            <a href="{% url 'quotes:add_quote' %}" class="btn btn-success">Додати цитату</a>
             <form method="post" action="{% url 'users:logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Logout</button>

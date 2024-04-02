@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 from .forms import LoginForm
 
+
 app_name = 'users'
 
 urlpatterns = [
