@@ -51,6 +51,11 @@ def quote_detail(request, quote_id):
 
 
 def quotes_by_tag(request, tag_name):
-    tag = Tag.objects.get(name=tag_name)
-    quotes = Quote.objects.filter(tags=tag)
-    return render(request, 'quotes/quotes_by_tag.html', {'tag': tag, 'quotes': quotes})
+    quotes = Quote.objects.filter(tags__name__iexact=tag_name)
+    all_tags = Tag.objects.all()
+    return render(request, 'quotes/index.html', {'quotes': quotes, 'all_tags': all_tags, 'tag_name': tag_name})
+
+
+def all_quotes(request):
+    all_tags = Tag.objects.all()
+    return render(request, 'quotes/index.html', {'all_tags': all_tags})

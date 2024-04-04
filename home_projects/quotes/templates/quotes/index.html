@@ -11,33 +11,37 @@
             {{quote.quote}}
             </span>
             <span>by <small class="author" itemprop="author">{{quote.author}}</small>
-        <a href= "{% url 'quotes:quote_detail' quote.id %}">(about)</a>
+        <a href="{% url 'quotes:quote_detail' quote.id %}">(about)</a>
         </span>
             <div class="tags">
                 Tags:
-                {% for tag in quote.tags.all %}
-                <a class="tag" href="{% url 'quotes:quotes_by_tag' 'thinking' %}" >change</a>
-                {% endfor %}
+                {% if quote.tags.all %}
+                    {% for tag in quote.tags.all %}
+                        <a class="tag" href="{% url 'quotes:quotes_by_tag' tag.name %}">{{ tag.name }}</a>
+                    {% endfor %}
+                {% else %}
+                    <span>No tags available</span>
+                {% endif %}
 
             </div>
         </div>
         {% endfor%}
-       <nav>
-    <ul class="pager">
-        <li class="previous">
-            <a class="{% if not quotes.has_previous %} disabled {% endif %}"
-               href="{% if quotes.has_previous %}{% url 'quotes:root_paginate' quotes.previous_page_number %}{% endif %}">
-               Previous
-            </a>
-        </li>
-        <li class="next">
-            <a class="{% if not quotes.has_next %} disabled {% endif %}"
-               href="{% if quotes.has_next %}{% url 'quotes:root_paginate' quotes.next_page_number %}{% endif %}">
-               Next
-            </a>
-        </li>
-    </ul>
-</nav>
+        <nav>
+            <ul class="pager">
+                <li class="previous">
+                    <a class="{% if not quotes.has_previous %} disabled {% endif %}"
+                       href="{% if quotes.has_previous %}{% url 'quotes:root_paginate' quotes.previous_page_number %}{% endif %}">
+                        Previous
+                    </a>
+                </li>
+                <li class="next">
+                    <a class="{% if not quotes.has_next %} disabled {% endif %}"
+                       href="{% if quotes.has_next %}{% url 'quotes:root_paginate' quotes.next_page_number %}{% endif %}">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
 
