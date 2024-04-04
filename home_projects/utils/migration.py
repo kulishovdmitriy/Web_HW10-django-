@@ -9,7 +9,7 @@ django.setup()
 from quotes.models import Quote, Tag, Author
 
 client = MongoClient(
-    'mongodb+srv://dmitriyykulishov:52628271@mongodb.dtj8cur.mongodb.net/?retryWrites=true&w=majority&appName=mongoDB'
+    'mongodb+srv://dmitriyykulishov:<password>@mongodb.dtj8cur.mongodb.net/?retryWrites=true&w=majority&appName=mongoDB'
 )
 db = client.mongodb
 

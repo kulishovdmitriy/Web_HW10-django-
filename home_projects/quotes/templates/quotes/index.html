@@ -15,31 +15,30 @@
         </span>
             <div class="tags">
                 Tags:
-                {% for tag in quote.tags %}
+                {% for tag in quote.tags.all %}
                 <a class="tag" href="/tag/{{tag}}">change</a>
                 {% endfor %}
 
             </div>
         </div>
         {% endfor%}
-        <nav>
-            <ul class="pager">
+       <nav>
+    <ul class="pager">
+        <li class="previous">
+            <a class="{% if not quotes.has_previous %} disabled {% endif %}"
+               href="{% if quotes.has_previous %}{% url 'quotes:root_paginate' quotes.previous_page_number %}{% endif %}">
+               Previous
+            </a>
+        </li>
+        <li class="next">
+            <a class="{% if not quotes.has_next %} disabled {% endif %}"
+               href="{% if quotes.has_next %}{% url 'quotes:root_paginate' quotes.next_page_number %}{% endif %}">
+               Next
+            </a>
+        </li>
+    </ul>
+</nav>
 
-                <li class="previous">
-                    <a class="{% if not quotes.has_previous %} disabled {% endif %}"
-                            href="{% if quotes.has_previous %} {% url 'quotes:root_paginate' quotes.previous_page_number %} {% else %} # {% endif %}"
-                    </a>
-                </li>
-
-
-                <li class="next">
-                    <a class="{% if not quotes.has_next %} disabled {% endif %}"
-                            href="{% if quotes.has_next %} {% url 'quotes:root_paginate' quotes.next_page_number %} {% else %} # {% endif %}"
-                </li>
-
-
-            </ul>
-        </nav>
     </div>
 
 </div>
