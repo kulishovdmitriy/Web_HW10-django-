@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-
+from django.db.models import Count
 from .forms import AuthorForm, QuoteForm
-from .models import Quote
+from .models import Quote, Tag
 
 
 # Create your views here.
@@ -39,3 +39,18 @@ def add_quote(request):
         form = QuoteForm()
     return render(request, 'quotes/add_quote.html', {'form': form})
 
+
+def top_ten_tags(request):
+    top_tags = Tag.objects.annotate(num_quotes=Count('quote')).order_by('-num_quotes')[:10]
+    return render(request, 'quotes/top_ten_tags.html', {'top_tags': top_tags})
+
+
+def quote_detail(request, quote_id):
+    quote = Quote.objects.get(pk=quote_id)
+    return render(request, 'quotes/quote_detail.html', {'quote': quote})
+
+
+def quotes_by_tag(request, tag_name):
+    tag = Tag.objects.get(name=tag_name)
+    quotes = Quote.objects.filter(tags=tag)
+    return render(request, 'quotes/quotes_by_tag.html', {'tag': tag, 'quotes': quotes})
